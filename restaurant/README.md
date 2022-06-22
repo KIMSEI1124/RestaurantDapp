@@ -8,6 +8,6 @@ Java : 11
 ---
 
 ### API  
-Spring Data Jpa 
-lombok
+Spring Data Jpa  
+lombok  
 h2 Database
