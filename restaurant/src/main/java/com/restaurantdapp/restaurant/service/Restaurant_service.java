@@ -1,9 +1,9 @@
-package com.restaurantdapp.restaurant.service.restaurant;
+package com.restaurantdapp.restaurant.service;
 
 import com.restaurantdapp.restaurant.domain.entity.restaurant.Restaurant;
 import com.restaurantdapp.restaurant.domain.enumrated.Country;
 import com.restaurantdapp.restaurant.domain.enumrated.restaurant.Restaurant_tag;
-import com.restaurantdapp.restaurant.repository.restaurant.Restaurant_repository;
+import com.restaurantdapp.restaurant.repository.Restaurant_repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -29,24 +29,10 @@ public class Address {
     private String address_info;
 
     @Column(nullable = false)
-    private double longitude;
-
-    @Column(nullable = false)
     private double latitude;
 
-    /**
-     * <p>상세 주소 없는 주소</p>
-     *
-     * @param address 주소
-     * @param longitude 경도
-     * @param latitude 위도
-     */
-    @Builder
-    public Address(String address, double longitude, double latitude) {
-        this.address = address;
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
+    @Column(nullable = false)
+    private double longitude;
 
     /**
      * <p>상세 주소 있는 주소</p>
@@ -59,7 +45,23 @@ public class Address {
     public Address(String address, String address_info, double longitude, double latitude) {
         this.address = address;
         this.address_info = address_info;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
+
+    /**
+     * <p>상세 주소 없는 주소</p>
+     *
+     * @param address 주소
+     * @param longitude 경도
+     * @param latitude 위도
+     */
+    @Builder
+    public Address(String address, double longitude, double latitude) {
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+
 }

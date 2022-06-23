@@ -1,4 +1,4 @@
-package com.restaurantdapp.restaurant.repository.restaurant;
+package com.restaurantdapp.restaurant.repository;
 
 import com.restaurantdapp.restaurant.domain.entity.restaurant.Restaurant;
 import com.restaurantdapp.restaurant.domain.enumrated.Country;
@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Restaurant_repository {
     private final EntityManager em;
-    private final Restaurant restaurant;
 
     /**
      * <p>레스트랑을 저장한다.</p>
