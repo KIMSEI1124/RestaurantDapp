@@ -1,4 +1,4 @@
-package com.restaurantdapp.restaurant.repository;
+package com.restaurantdapp.restaurant.repository.restaurant;
 
 import com.restaurantdapp.restaurant.domain.entity.restaurant.Restaurant;
 import com.restaurantdapp.restaurant.domain.enumrated.Country;
