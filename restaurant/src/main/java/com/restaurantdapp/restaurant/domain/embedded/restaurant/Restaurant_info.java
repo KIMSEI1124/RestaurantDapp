@@ -27,6 +27,7 @@ public class Restaurant_info {
             nullable = false)
     private String name;
 
+    // 미완성 - 너무 긴 문자열이 들어가면 오류가 발생
     private String header;
 
     @Enumerated(EnumType.STRING)

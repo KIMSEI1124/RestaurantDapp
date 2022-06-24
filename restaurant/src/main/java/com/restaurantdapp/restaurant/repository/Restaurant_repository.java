@@ -29,6 +29,16 @@ public class Restaurant_repository {
     }
 
     /**
+     * <p>미완성</p>
+     * <p>레스토랑을 삭제한다.</p>
+     * @param id    레스토랑 Id
+     */
+    public void deleteById(Long id) {
+        em.createQuery("delete from Restaurant where id =: id")
+                .setParameter("id", id);
+    }
+
+    /**
      * <p>레스토랑 Id로 레스토랑을 검색한다.</p>
      *
      * @param id 레스토랑 Id

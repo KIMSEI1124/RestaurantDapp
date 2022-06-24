@@ -2,6 +2,7 @@ package com.restaurantdapp.restaurant.repository;
 
 import com.restaurantdapp.restaurant.domain.embedded.Address;
 import com.restaurantdapp.restaurant.domain.embedded.restaurant.Restaurant_info;
+import com.restaurantdapp.restaurant.domain.embedded.restaurant.Restaurant_review;
 import com.restaurantdapp.restaurant.domain.entity.restaurant.Restaurant;
 import com.restaurantdapp.restaurant.domain.enumrated.Country;
 import com.restaurantdapp.restaurant.domain.enumrated.restaurant.Restaurant_tag;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,12 @@ class Restaurant_repositoryTest {
      * @return 1개의 저장된 레스토랑
      */
     public Restaurant settingRestaurant_중화미식() {
+        Address address = Address.builder()
+                .address("경기 안양시 만안구 양화로 4")
+                .latitude(37.3945373)
+                .longitude(126.9159423)
+                .build();
+
         Restaurant_info restaurant_info = Restaurant_info.builder()
                 .name("중화미식")
                 .header("주문 즉시 조리가 이루어지는 불맛나는 고기짬뽕이 일품인 중화미식입니다. 모든 메뉴는 포장 가능합니다.")
@@ -40,21 +48,33 @@ class Restaurant_repositoryTest {
                 .phone_number("031-468-6888")
                 .build();
 
-        Address address = Address.builder()
-                .address("경기 안양시 만안구 양화로 4")
-                .latitude(37.3945373)
-                .longitude(126.9159423)
+        Restaurant_review restaurant_review_info = Restaurant_review.builder()
+                .star(0L)
+                .avg_star(0D)
+                .review(0L)
                 .build();
 
 
         return Restaurant.builder()
                 .country(Country.KOR)
-                .restaurant_info(restaurant_info)
                 .restaurant_address(address)
+                .restaurant_info(restaurant_info)
+                .restaurant_review_info(restaurant_review_info)
                 .build();
     }
 
+    /**
+     * <p>header 타입 오류 - too long</p>
+     *
+     * @return 역전우동 레스토랑
+     */
     public Restaurant settingRestaurant_역전우동() {
+        Address address = Address.builder()
+                .address("경기 안양시 만안구 장내로139번길 28 1층")
+                .latitude(37.3989096)
+                .longitude(126.922376)
+                .build();
+
         Restaurant_info restaurant_info = Restaurant_info.builder()
                 .name("역전우동0410 안양일번가점")
                 .header("역전우동0410은 가쓰오부시의 감칠맛으로 대표되는 일본식 우동 국물 맛 속에서도 한국식 가락국수 특유의 개운한 맛을 느낄 수 있는 지점, 우리의 보편적 입맛을 사로잡을 한국식 우동 맛을 찾아내려 끊임없이 연구하였습니다.\n" +
@@ -67,17 +87,17 @@ class Restaurant_repositoryTest {
                 .phone_number("031-465-0410")
                 .build();
 
-        Address address = Address.builder()
-                .address("경기 안양시 만안구 장내로139번길 28 1층")
-                .latitude(37.3989096)
-                .longitude(126.922376)
+        Restaurant_review restaurant_review_info = Restaurant_review.builder()
+                .star(0L)
+                .avg_star(0D)
+                .review(0L)
                 .build();
-
 
         return Restaurant.builder()
                 .country(Country.KOR)
-                .restaurant_info(restaurant_info)
                 .restaurant_address(address)
+                .restaurant_info(restaurant_info)
+                .restaurant_review_info(restaurant_review_info)
                 .build();
     }
 
@@ -99,6 +119,7 @@ class Restaurant_repositoryTest {
      */
     @Test
     @Transactional
+    @Rollback(value = false)
     public void restaurantSave() {
         // given
         Restaurant restaurant = settingRestaurant_역전우동();
@@ -118,6 +139,7 @@ class Restaurant_repositoryTest {
      * <p>2. 레스토랑들 id로 검색</p>
      */
     @Test
+    @Transactional
     public void restaurantsSave() {
         // given
         List<Restaurant> restaurants = settingRestaurantByMany();
@@ -136,5 +158,28 @@ class Restaurant_repositoryTest {
             Assertions.assertEquals(restaurants.get(i).getId(), index.get(i), "두개의 값이 동일해야 합니다.");
             Assertions.assertEquals(restaurants.get(i).getId(), find_restaurants.get(i).getId(), "두개의 값이 동일해야 합니다.");
         }
+    }
+
+    /**
+     * <p>미완성 - Delete 쿼리 오류</p>
+     * <p>1. 레스토랑 삭제</p>
+     */
+    @Test
+    @Transactional
+    public void deleteRestaurant() {
+        // given
+        Restaurant restaurant = settingRestaurant_중화미식();
+
+        // when
+        Long restaurant_id = restaurant_repository.save(restaurant);
+        restaurant_repository.deleteById(restaurant_id);
+        try {
+            Restaurant byIdRestaurant = restaurant_repository.findById(restaurant_id);
+            System.out.println("byIdRestaurant.getId() : \"" + byIdRestaurant.getId() + "\"");
+        } catch (Exception e) {
+            System.out.println("해당 데이터가 존재하지 않습니다.");
+        }
+        // then
+        Assertions.fail("해당 데이터가 삭제되지 않았습니다.");
     }
 }

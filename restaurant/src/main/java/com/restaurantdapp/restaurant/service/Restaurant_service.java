@@ -16,6 +16,7 @@ import java.util.List;
 public class Restaurant_service {
     final private Restaurant_repository restaurant_repository;
 
+    /* 저장 */
     /**
      * <p>레스토랑을 저장한다</p>
      * @param restaurant    레스토랑
@@ -27,6 +28,7 @@ public class Restaurant_service {
         return restaurant.getId();
     }
 
+    /* 검색 */
     /**
      * <p>레스토랑을 Id로 검색한다.</p>
      * @param id    레스토랑 Id
@@ -73,5 +75,10 @@ public class Restaurant_service {
      */
     public List<Restaurant> findByCountryByName(Country country, String name) {
         return restaurant_repository.findByCountryByName(country, name);
+    }
+
+    /* 비즈니스 로직 */
+    public void add_review() {
+
     }
 }
