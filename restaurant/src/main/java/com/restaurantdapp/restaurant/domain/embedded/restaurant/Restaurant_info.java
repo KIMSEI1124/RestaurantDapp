@@ -12,8 +12,6 @@ import javax.persistence.Enumerated;
 
 /**
  * <p>레스토랑 상세 주소</p>
- * <p>생성일 : 2022.06.22</p>
- * <p>저자 : KIMSEI</p>
  */
 @Getter
 @Embeddable
