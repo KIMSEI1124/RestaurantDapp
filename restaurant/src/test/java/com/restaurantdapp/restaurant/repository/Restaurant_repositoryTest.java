@@ -122,7 +122,7 @@ class Restaurant_repositoryTest {
     @Rollback(value = false)
     public void restaurantSave() {
         // given
-        Restaurant restaurant = settingRestaurant_역전우동();
+        Restaurant restaurant = settingRestaurant_중화미식();
 
         // when
         Long restaurant_id = restaurant_repository.save(restaurant);
