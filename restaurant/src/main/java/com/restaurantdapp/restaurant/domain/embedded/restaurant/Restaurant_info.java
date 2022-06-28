@@ -23,8 +23,6 @@ public class Restaurant_info {
      * <p>restaurant_tag : 레스토랑 분류</p>
      * <p>phone_number : 레스토랑 전화번호</p>
      */
-    @Column(name = "restaurant_name",
-            nullable = false)
     private String name;
 
     // 미완성 - 너무 긴 문자열이 들어가면 오류가 발생
@@ -32,13 +30,7 @@ public class Restaurant_info {
 
     @Enumerated(EnumType.STRING)
     private Restaurant_tag restaurant_tag;
-
-    @Column(name = "restaurant_hours",
-            nullable = false)
     private String hours;
-
-    @Column(name = "restaurant_phone_number",
-            nullable = false)
     private String phone_number;
 
     /**

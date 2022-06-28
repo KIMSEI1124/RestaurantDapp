@@ -22,16 +22,9 @@ public class Address {
      * <p>longitude : 경도</p>
      * <p>latitude : 위도</p>
      */
-    @Column(name = "restaurant_address",
-            nullable = false)
     private String address;
-
     private String address_info;
-
-    @Column(nullable = false)
     private double latitude;
-
-    @Column(nullable = false)
     private double longitude;
 
     /**
